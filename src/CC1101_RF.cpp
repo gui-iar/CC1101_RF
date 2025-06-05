@@ -638,4 +638,62 @@ bool CC1101::sendPacket(const byte *txBuffer, byte size, const uint32_t duration
     return true;
 }
 
+
+// Modulation configuration functions
+void CC1101::setModulation2FSK() {
+    setIDLEstate();
+    byte mdmcfg2 = readRegister(CC1101_MDMCFG2);
+    mdmcfg2 = (mdmcfg2 & 0b10001111) | (0b000 << 4); // Set MOD_FORMAT to 000 (2-FSK)
+    writeRegister(CC1101_MDMCFG2, mdmcfg2);
+    writeRegister(CC1101_DEVIATN, 0x47); // Recommended deviation for 2-FSK (47.6 kHz)
+    setRXstate();
+}
+
+void CC1101::setModulationGFSK() {
+    setIDLEstate();
+    byte mdmcfg2 = readRegister(CC1101_MDMCFG2);
+    mdmcfg2 = (mdmcfg2 & 0b10001111) | (0b001 << 4); // Set MOD_FORMAT to 001 (GFSK)
+    writeRegister(CC1101_MDMCFG2, mdmcfg2);
+    writeRegister(CC1101_DEVIATN, 0x47); // Recommended deviation for GFSK (47.6 kHz)
+    setRXstate();
+}
+
+void CC1101::setModulation4FSK() {
+    setIDLEstate();
+    byte mdmcfg2 = readRegister(CC1101_MDMCFG2);
+    mdmcfg2 = (mdmcfg2 & 0b10001111) | (0b100 << 4); // Set MOD_FORMAT to 100 (4-FSK)
+    writeRegister(CC1101_MDMCFG2, mdmcfg2);
+    writeRegister(CC1101_DEVIATN, 0x50); // Recommended deviation for 4-FSK (127 kHz)
+    setRXstate();
+}
+
+void CC1101::setModulationASK() {
+    setIDLEstate();
+    byte mdmcfg2 = readRegister(CC1101_MDMCFG2);
+    mdmcfg2 = (mdmcfg2 & 0b10001111) | (0b011 << 4); // Set MOD_FORMAT to 011 (ASK/OOK)
+    writeRegister(CC1101_MDMCFG2, mdmcfg2);
+    writeRegister(CC1101_DEVIATN, 0x00); // No deviation for ASK
+    setRXstate();
+}
+
+void CC1101::setModulationOOK() {
+    setIDLEstate();
+    byte mdmcfg2 = readRegister(CC1101_MDMCFG2);
+    mdmcfg2 = (mdmcfg2 & 0b10001111) | (0b011 << 4); // Set MOD_FORMAT to 011 (ASK/OOK)
+    writeRegister(CC1101_MDMCFG2, mdmcfg2);
+    writeRegister(CC1101_DEVIATN, 0x00); // No deviation for OOK
+    writeRegister(CC1101_FREND0, 0x11);  // Optimize for OOK (PATABLE index 1)
+    setRXstate();
+}
+
+void CC1101::setModulationMSK() {
+    setIDLEstate();
+    byte mdmcfg2 = readRegister(CC1101_MDMCFG2);
+    mdmcfg2 = (mdmcfg2 & 0b10001111) | (0b111 << 4); // Set MOD_FORMAT to 111 (MSK)
+    writeRegister(CC1101_MDMCFG2, mdmcfg2);
+    writeRegister(CC1101_DEVIATN, 0x47); // Recommended deviation for MSK (47.6 kHz)
+    setRXstate();
+}
+
+
 // END //
