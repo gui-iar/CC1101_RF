@@ -380,6 +380,45 @@ void CC1101::setBaudrate38000bps() {
     writeRegister(CC1101_DEVIATN, 0x35);
 }
 
+void CC1101::setBaudrate1200bps() {
+    setIDLEstate();
+    writeRegister(CC1101_MDMCFG4, 0xC4); // DRATE_E = 4, BW = 203 kHz
+    writeRegister(CC1101_MDMCFG3, 0x83); // DRATE_M = 131
+    writeRegister(CC1101_DEVIATN, 0x40); // 47.6 kHz deviation
+    setRXstate();
+}
+
+void CC1101::setBaudrate2400bps() {
+    setIDLEstate();
+    writeRegister(CC1101_MDMCFG4, 0xC5); // DRATE_E = 5, BW = 203 kHz
+    writeRegister(CC1101_MDMCFG3, 0x83); // DRATE_M = 131
+    writeRegister(CC1101_DEVIATN, 0x40); // 47.6 kHz deviation
+    setRXstate();
+}
+
+void CC1101::setBaudrate9600bps() {
+    setIDLEstate();
+    writeRegister(CC1101_MDMCFG4, 0xC6); // DRATE_E = 6, BW = 203 kHz
+    writeRegister(CC1101_MDMCFG3, 0x96); // DRATE_M = 150
+    writeRegister(CC1101_DEVIATN, 0x40); // 47.6 kHz deviation
+    setRXstate();
+}
+
+void CC1101::setBaudrate19200bps() {
+    setIDLEstate();
+    writeRegister(CC1101_MDMCFG4, 0xC7); // DRATE_E = 7, BW = 203 kHz
+    writeRegister(CC1101_MDMCFG3, 0xAC); // DRATE_M = 172
+    writeRegister(CC1101_DEVIATN, 0x40); // 47.6 kHz deviation
+    setRXstate();
+}
+
+void CC1101::setBaudrate57600bps() {
+    setIDLEstate();
+    writeRegister(CC1101_MDMCFG4, 0xC8); // DRATE_E = 8, BW = 203 kHz
+    writeRegister(CC1101_MDMCFG3, 0xE5); // DRATE_M = 229
+    writeRegister(CC1101_DEVIATN, 0x35); // 20.6 kHz deviation
+    setRXstate();
+}
 
 void CC1101::setBaudrate(const uint16_t baudrate) {
     if (baudrate >= 10000) setBaudrate38000bps();
