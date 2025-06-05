@@ -306,7 +306,15 @@ class CC1101 {
 		// Sets the frequency of the carrier signal. Sets the chip to IDLE state.
 		// No need to use it in setup as begin calls it internally
 		void setFrequency(const uint32_t freq);
-		
+
+		// Sets different modulation schemes.
+		void setModulation2FSK();
+		void setModulationGFSK();
+		void setModulation4FSK();
+		void setModulationASK();
+		void setModulationOOK();
+		void setModulationMSK();
+
 		// Do not use it unless for interoperability with an already installed system
 		// the default syncWord has the best charasterics for packet detection
 		// Never use syncWord for packet filtering, use adresses instead
