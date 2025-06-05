@@ -254,6 +254,12 @@ class CC1101 {
 		// Sets the chip to IDLE state.
 		void setBaudrate38000bps();
 
+		void setBaudrate1200bps();
+		void setBaudrate2400bps();
+		void setBaudrate9600bps();
+		void setBaudrate19200bps();
+		void setBaudrate57600bps();
+
 		// set the baudrate, 4800 and 38000 only. The algo is crude, any number less than 10000 -> 4800bps
 		__attribute__((deprecated)) void setBaudrate(const uint16_t baudrate);
 		
